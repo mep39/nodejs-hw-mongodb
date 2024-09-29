@@ -1,13 +1,28 @@
-import createHttpError from "http-errors";
+import createHttpError from 'http-errors';
 
-import * as contactServices from "../services/contacts.js";
+import parsePaginationParams from '../utils/parsePaginationParams.js';
+import parseSortParams from '../utils/parseSortParams.js';
+
+import * as contactServices from '../services/contacts.js';
+
+import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
+import { sortFields } from '../db/Contacts.js';
 
 export const getAllContactsController = async (req, res) => {
-  const data = await contactServices.getAllContacts();
+  const { perPage, page } = parsePaginationParams(req.query);
+  const { sortBy, sortOrder } = parseSortParams({ ...req.query, sortFields });
+  const filter = parseContactsFilterParams(req.query);
+  const data = await contactServices.getAllContacts({
+    perPage,
+    page,
+    sortBy,
+    sortOrder,
+    filter,
+  });
 
   res.json({
     status: 200,
-    message: "Successfully found contacts",
+    message: 'Successfully found contacts',
     data,
   });
 };
@@ -32,7 +47,7 @@ export const addContactController = async (req, res) => {
 
   res.status(201).json({
     status: 201,
-    message: "Contact add successfully",
+    message: 'Contact add successfully',
     data,
   });
 };
@@ -42,14 +57,14 @@ export const upsertContactController = async (req, res) => {
   const { isNew, data } = await contactServices.updateContact(
     { _id: id },
     req.body,
-    { upsert: true }
+    { upsert: true },
   );
 
   const status = isNew ? 201 : 200;
 
   res.status(status).json({
     status,
-    message: "Contact upsert successfully",
+    message: 'Contact upsert successfully',
     data,
   });
 };
@@ -64,7 +79,7 @@ export const patchContactController = async (req, res) => {
 
   res.json({
     status: 200,
-    message: "Contact patched successfully",
+    message: 'Contact patched successfully',
     data: result.data,
   });
 };
