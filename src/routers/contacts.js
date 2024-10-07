@@ -32,8 +32,7 @@ contactsRouter.get(
 
 contactsRouter.post(
   '/',
-  upload.single('photo'),
-  ctrlWrapper(contactControllers.addContactController),
+  upload.single('photo'), validateBody(contactAddSchema), ctrlWrapper(contactControllers.addContactController),
 );
 
 contactsRouter.put(

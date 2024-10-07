@@ -8,7 +8,7 @@ import fs from 'node:fs/promises';
 
 import jwt from 'jsonwebtoken';
 
-import { SMTP } from '../constants/index.js';
+import { SMTP, TEMPLATES_DIR } from '../constants/index.js';
 import { env } from '../utils/env.js';
 import { sendEmail } from '../utils/sendMail.js';
 
@@ -112,7 +112,7 @@ export const logout = async (sessionId) => {
 export const findUser = (filter) => UserCollection.findOne(filter);
 
 export const requestResetToken = async (email) => {
-  const user = await UsersCollection.findOne({ email });
+  const user = await UserCollection.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
@@ -160,7 +160,7 @@ export const resetPassword = async (payload) => {
     throw err;
   }
 
-  const user = await UsersCollection.findOne({
+  const user = await UserCollection.findOne({
     email: entries.email,
     _id: entries.sub,
   });
@@ -171,7 +171,7 @@ export const resetPassword = async (payload) => {
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  await UsersCollection.updateOne(
+  await UserCollection.updateOne(
     { _id: user._id },
     { password: encryptedPassword },
   );
