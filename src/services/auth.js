@@ -169,10 +169,16 @@ export const resetPassword = async (payload) => {
     throw createHttpError(404, 'User not found');
   }
 
+  if (!Date.now() > entries.exp) {
+    throw createHttpError(401, 'Token is expired or invalid.');
+  }
+
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
   await UserCollection.updateOne(
     { _id: user._id },
     { password: encryptedPassword },
   );
+
+  await SessionCollection.deleteOne({ userId: user._id });
 };
