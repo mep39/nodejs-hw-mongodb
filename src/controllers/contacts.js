@@ -2,7 +2,8 @@ import createHttpError from 'http-errors';
 
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
-import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import saveFileToUploadDir from '../utils/saveFileToUploadDir.js';
+// import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import parsePaginationParams from '../utils/parsePaginationParams.js';
 import parseSortParams from '../utils/parseSortParams.js';
 
