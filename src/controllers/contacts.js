@@ -51,8 +51,24 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const addContactController = async (req, res) => {
+  const photo = req.file;
+
+  let photoUrl;
+
+  if (photo) {
+    if (enableCloudinary === 'true') {
+      photoUrl = await saveFileToCloudinary(photo, 'photoUrl');
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
   const { _id: userId } = req.user;
-  const data = await contactServices.createContact({ ...req.body, userId });
+  const data = await contactServices.createContact({
+    ...req.body,
+    userId,
+    photoUrl,
+  });
 
   res.status(201).json({
     status: 201,
@@ -63,8 +79,9 @@ export const addContactController = async (req, res) => {
 
 export const upsertContactController = async (req, res) => {
   const { id } = req.params;
+  const { _id: userId } = req.user;
   const { isNew, data } = await contactServices.updateContact(
-    { _id: id },
+    { _id: id, userId },
     req.body,
     { upsert: true },
   );
@@ -81,21 +98,21 @@ export const upsertContactController = async (req, res) => {
 export const patchContactController = async (req, res) => {
   const { id } = req.params;
   const { _id: userId } = req.user;
-  const photo = req.file;
+  // const photo = req.file;
 
-  let photoUrl;
+  // let photoUrl;
 
-  if (photo) {
-    if (enableCloudinary === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
-    }
-  }
+  // if (photo) {
+  //   if (enableCloudinary === 'true') {
+  //     photoUrl = await saveFileToCloudinary(photo, "photoUrl");
+  //   } else {
+  //     photoUrl = await saveFileToUploadDir(photo);
+  //   }
+  // }
 
   const result = await contactServices.updateContact(
-    { userId },
-    { ...req.body, photo: photoUrl },
+    { _id: id, userId },
+    req.body,
   );
 
   if (!result) {
@@ -111,7 +128,8 @@ export const patchContactController = async (req, res) => {
 
 export const deleteContactController = async (req, res) => {
   const { id } = req.params;
-  const data = await contactServices.deleteContact({ _id: id });
+  const { _id: userId } = req.user;
+  const data = await contactServices.deleteContact({ _id: id, userId });
 
   if (!data) {
     throw createHttpError(404, `Contact with id=${id} not found`);
