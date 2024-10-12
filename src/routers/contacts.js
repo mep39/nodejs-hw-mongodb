@@ -40,15 +40,15 @@ contactsRouter.post(
 contactsRouter.put(
   '/:id',
   isValidId,
-  upload.single('photo'),
+  // upload.single('photo'),
   validateBody(contactAddSchema),
   ctrlWrapper(contactControllers.upsertContactController),
 );
 
 contactsRouter.patch(
   '/:id',
-  isValidId,
   upload.single('photo'),
+  isValidId,
   validateBody(contactPatchSchema),
   ctrlWrapper(contactControllers.patchContactController),
 );

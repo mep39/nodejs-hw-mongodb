@@ -51,15 +51,15 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const addContactController = async (req, res) => {
-  const photo = req.file;
+  // const photo = req.file;
 
-  let photoUrl;
+  let poster;
 
-  if (photo) {
+  if (req.file) {
     if (enableCloudinary === 'true') {
-      photoUrl = await saveFileToCloudinary(photo, 'photoUrl');
+      poster = await saveFileToCloudinary(req.file, 'posters');
     } else {
-      photoUrl = await saveFileToUploadDir(photo);
+      poster = await saveFileToUploadDir(req.file);
     }
   }
 
@@ -67,7 +67,7 @@ export const addContactController = async (req, res) => {
   const data = await contactServices.createContact({
     ...req.body,
     userId,
-    photoUrl,
+    poster,
   });
 
   res.status(201).json({
