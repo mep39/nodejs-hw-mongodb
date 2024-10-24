@@ -99,19 +99,20 @@ export const patchContactController = async (req, res) => {
   const { _id: userId } = req.user;
   // const photo = req.file;
 
-  // let photoUrl;
+  let photo;
 
-  // if (photo) {
-  //   if (enableCloudinary === 'true') {
-  //     photoUrl = await saveFileToCloudinary(photo, "photoUrl");
-  //   } else {
-  //     photoUrl = await saveFileToUploadDir(photo);
-  //   }
-  // }
+  if (req.file) {
+    if (enableCloudinary === 'true') {
+      photo = await saveFileToCloudinary(req.file, 'photos');
+    } else {
+      photo = await saveFileToUploadDir(req.file);
+    }
+  }
 
   const result = await contactServices.updateContact(
     { _id: id, userId },
     req.body,
+    photo,
   );
 
   if (!result) {
