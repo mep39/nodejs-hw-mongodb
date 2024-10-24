@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import upload from '../middlewares/multer.js';
+import upload from '../middlewares/upload.js';
 
 import * as contactControllers from '../controllers/contacts.js';
 

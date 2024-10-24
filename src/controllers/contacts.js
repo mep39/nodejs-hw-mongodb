@@ -52,7 +52,7 @@ export const getContactByIdController = async (req, res) => {
 
 export const addContactController = async (req, res) => {
   // const photo = req.file;
-  const { _id: userId } = req.user;
+
   let poster;
 
   if (req.file) {
@@ -62,7 +62,7 @@ export const addContactController = async (req, res) => {
       poster = await saveFileToUploadDir(req.file);
     }
   }
-
+  const { _id: userId } = req.user;
   const data = await contactServices.createContact({
     ...req.body,
     userId,
