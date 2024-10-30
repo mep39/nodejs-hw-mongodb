@@ -4,13 +4,14 @@ import * as authControllers from '../controllers/auth.js';
 
 import { resetPasswordSchema } from '../validation/users.js';
 import { resetPasswordController } from '../controllers/auth.js';
+// import { requestResetEmailController } from "../controllers/auth.js";
 
 import ctrlWrapper from '../utils/ctrlWrapper.js';
 import validateBody from '../utils/validateBody.js';
 
 import {
-  userSignupSchema,
-  userSigninSchema,
+  userLoginSchema,
+  userRegisterSchema,
   requestResetEmailSchema,
 } from '../validation/users.js';
 
@@ -18,13 +19,13 @@ const authRouter = Router();
 
 authRouter.post(
   '/register',
-  validateBody(userSignupSchema),
+  validateBody(userRegisterSchema),
   ctrlWrapper(authControllers.registerController),
 );
 
 authRouter.post(
   '/login',
-  validateBody(userSigninSchema),
+  validateBody(userLoginSchema),
   ctrlWrapper(authControllers.loginController),
 );
 

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { UPLOAD_DIR } from './constants/index.js';
+// import { UPLOAD_DIR } from './constants/index.js';
 
 import { env } from './utils/env.js';
 
@@ -19,7 +19,7 @@ export const startServer = () => {
   app.use(cors());
   app.use(express.json());
   app.use(cookieParser());
-  app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use(express.static('uploads'));
 
   app.use('/auth', authRouter);
   app.use('/contacts', contactsRouter);
@@ -30,5 +30,5 @@ export const startServer = () => {
 
   const port = Number(env('PORT', 3000));
 
-  app.listen(port, () => console.log('Server running on port 3000'));
+  app.listen(port, () => console.log(`Server running on port ${port}`));
 };

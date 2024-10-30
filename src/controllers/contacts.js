@@ -9,7 +9,7 @@ import parseSortParams from '../utils/parseSortParams.js';
 
 import * as contactServices from '../services/contacts.js';
 
-import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
+// import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
 import { sortFields } from '../db/Contacts.js';
 
 const enableCloudinary = env('ENABLE_CLOUDINARY');
@@ -17,14 +17,15 @@ const enableCloudinary = env('ENABLE_CLOUDINARY');
 export const getAllContactsController = async (req, res) => {
   const { perPage, page } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams({ ...req.query, sortFields });
-  const filter = parseContactsFilterParams(req.query);
+  // const filter = parseContactsFilterParams(req.query);
   const { _id: userId } = req.user;
   const data = await contactServices.getContacts({
     perPage,
     page,
     sortBy,
     sortOrder,
-    filter: { ...filter, userId },
+    // filter: { ...filter, userId },
+    userId,
   });
 
   res.json({
@@ -109,10 +110,17 @@ export const patchContactController = async (req, res) => {
     }
   }
 
+  const updateData = {
+    ...req.body,
+    // photo: photo,
+    ...(photo && { photo }),
+  };
+
   const result = await contactServices.updateContact(
     { _id: id, userId },
-    req.body,
-    photo,
+    // req.body,
+    // photo,
+    updateData,
   );
 
   if (!result) {

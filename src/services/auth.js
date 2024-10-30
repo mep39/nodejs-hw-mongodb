@@ -35,6 +35,9 @@ const createSession = () => {
   };
 };
 
+const appDomain = env('APP_DOMAIN');
+console.log(appDomain);
+
 export const register = async (payload) => {
   const { email, password } = payload;
   const user = await UserCollection.findOne({ email });

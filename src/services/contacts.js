@@ -5,44 +5,49 @@ import { SORT_ORDER } from '../constants/index.js';
 export const getContacts = async ({
   perPage,
   page,
-  sortBy = '_id',
+  sortBy = 'name',
   sortOrder = SORT_ORDER[0],
-  filter = {},
+  // filter = {},
+  userId,
 }) => {
   const skip = (page - 1) * perPage;
-  const contactQuery = ContactCollection.find();
-  if (filter.minReleaseYear) {
-    contactQuery.where('releaseYear').gte(filter.minReleaseYear);
-  }
-  if (filter.maxReleaseYear) {
-    contactQuery.where('releaseYear').lte(filter.maxReleaseYear);
-  }
-  if (filter.userId) {
-    contactQuery.where('userId').eq(filter.userId);
-  }
-  const movies = await contactQuery
+  const limit = perPage;
+  const contactQuery = ContactCollection.find({ userId });
+  // const contactQuery = ContactCollection.find();
+  // if (filter.minReleaseYear) {
+  //   contactQuery.where('releaseYear').gte(filter.minReleaseYear);
+  // }
+  // if (filter.maxReleaseYear) {
+  //   contactQuery.where('releaseYear').lte(filter.maxReleaseYear);
+  // }
+  // if (filter.userId) {
+  //   contactQuery.where('userId').eq(filter.userId);
+  // }
+  const data = await contactQuery
     .skip(skip)
-    .limit(perPage)
+    .limit(limit)
     .sort({ [sortBy]: sortOrder });
   const count = await ContactCollection.find()
     .merge(contactQuery)
     .countDocuments();
   const paginationData = calculatePaginationData({ count, perPage, page });
   return {
+    data,
     page,
     perPage,
-    movies,
+    // movies,
     totalItems: count,
     ...paginationData,
   };
 };
 
-export const getContact = (filter) => ContactCollection.findById(filter);
+export const getContact = (filter) => ContactCollection.findOne(filter);
 
 export const createContact = (payload) => ContactCollection.create(payload);
 
 export const updateContact = async (filter, data, options = {}) => {
   const rawResult = await ContactCollection.findOneAndUpdate(filter, data, {
+    new: true,
     includeResultMetadata: true,
     ...options,
   });

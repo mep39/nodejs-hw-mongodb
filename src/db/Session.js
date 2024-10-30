@@ -5,7 +5,8 @@ import { handleSaveError, setUpdateOptions } from './hooks.js';
 const sessionSchema = new Schema(
   {
     userId: {
-      type: Schema.Types.ObjectId,
+      // type: Schema.Types.ObjectId,
+      type: String,
       ref: 'user',
       required: true,
     },
