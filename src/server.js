@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-// import { UPLOAD_DIR } from './constants/index.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 import { env } from './utils/env.js';
 
@@ -11,6 +11,7 @@ import logger from '../src/middlewares/loger.js';
 
 import authRouter from './routers/auth.js';
 import contactsRouter from './routers/contacts.js';
+import swaggerDocs from './middlewares/swaggerDocs.js';
 
 export const startServer = () => {
   const app = express();
@@ -23,6 +24,7 @@ export const startServer = () => {
 
   app.use('/auth', authRouter);
   app.use('/contacts', contactsRouter);
+  app.use('/api-docs', swaggerDocs());
 
   app.use(notFoundHandler);
 

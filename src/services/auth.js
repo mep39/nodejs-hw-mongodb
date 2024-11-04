@@ -20,6 +20,7 @@ import {
   refreshTokenLifetime,
 } from '../constants/users.js';
 import 'dotenv/config';
+import { validateCode } from '../utils/googleOAuth2.js';
 
 const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');
@@ -191,4 +192,28 @@ export const resetPassword = async (payload) => {
   );
 
   await SessionCollection.deleteOne({ userId: user._id });
+};
+
+export const loginOrRegisterWithGoogleOAuth = async (code) => {
+  const loginTicket = await validateCode(code);
+  const payload = loginTicket.getPayload();
+  let user = await UserCollection.findOne({ email: payload.email });
+  if (!user) {
+    const password = randomBytes(10);
+    const hashPassword = await bcrypt.hash(password, 10);
+    user = await UserCollection.create({
+      email: payload.email,
+      name: payload.name,
+      password: hashPassword,
+      verify: true,
+    });
+    delete user._doc.password;
+  }
+  const sessionData = createSession();
+
+  const userSession = await SessionCollection.create({
+    userId: user._id,
+    ...sessionData,
+  });
+  return userSession;
 };
