@@ -14,7 +14,7 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://nodejs-hw-mongodb-4-usf0.onrender.com"
+      "url": "https://nodejs-hw-mongodb-4-74tq.onrender.com"
     }
   ],
   "tags": [
@@ -24,13 +24,15 @@
     },
     {
       "name": "Auth",
-      "description": "Auth operation."
+      "description": "Auth operations."
     }
   ],
   "paths": {
     "/contacts": {
       "get": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "summary": "Get list of contacts",
         "operationId": "getContacts",
         "description": "Get list of contacts with this endpoint",
@@ -70,7 +72,10 @@
             "name": "sortOrder",
             "schema": {
               "type": "string",
-              "enum": ["asc", "desc"],
+              "enum": [
+                "asc",
+                "desc"
+              ],
               "example": "asc"
             }
           }
@@ -82,7 +87,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -147,7 +156,9 @@
         }
       },
       "post": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "summary": "Create new contact",
         "operationId": "createContact",
         "description": "Create a new contact with payload",
@@ -186,7 +197,11 @@
                   "contactType": {
                     "description": "Contact's type",
                     "type": "string",
-                    "enum": ["work", "home", "person"]
+                    "enum": [
+                      "work",
+                      "home",
+                      "person"
+                    ]
                   },
                   "usertId": {
                     "description": "Contact's user id",
@@ -210,7 +225,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -237,7 +256,9 @@
     },
     "/contacts/{id}": {
       "get": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "summary": "Get contact by id",
         "operationId": "getContactById",
         "description": "Get contact by id",
@@ -264,7 +285,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -289,7 +314,9 @@
         }
       },
       "patch": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "summary": "Get list of contacts",
         "operationId": "updateContact",
         "description": "Update contact with this endpoint",
@@ -334,7 +361,11 @@
                   "contactType": {
                     "description": "Type contact",
                     "type": "string",
-                    "enum": ["work", "home", "personal"],
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ],
                     "example": "work"
                   }
                 }
@@ -349,7 +380,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -417,7 +452,9 @@
         }
       },
       "delete": {
-        "tags": ["Contacts"],
+        "tags": [
+          "Delete Contacts"
+        ],
         "summary": "Delete contact",
         "operationId": "deleteContactById",
         "description": "Delete a contact with this id",
@@ -426,11 +463,11 @@
             "bearerAuth": []
           }
         ],
-        "parametrs": [
+        "parameters": [
           {
             "in": "path",
             "name": "id",
-            "reqired": true,
+            "required": true,
             "description": "ID contact's",
             "schema": {
               "type": "string"
@@ -515,7 +552,11 @@
           "contactType": {
             "description": "Contact's type",
             "type": "string",
-            "enum": ["work", "home", "personal"]
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ]
           },
           "userId": {
             "description": "Contact's user id",
@@ -537,7 +578,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -549,7 +594,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
