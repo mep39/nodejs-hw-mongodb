@@ -175,9 +175,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "isFavorite",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -189,6 +187,11 @@
                     "description": "Contact's phone number",
                     "type": "number",
                     "example": 4917146587763
+                  },
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string",
+                    "example": "rudolf@mail.com"
                   },
                   "isFavorite": {
                     "description": "Is contact a favorite?",
@@ -353,6 +356,11 @@
                     "type": "string",
                     "example": "+4915143679084"
                   },
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  },
                   "isFavorite": {
                     "description": "Is contact favorite?",
                     "type": "boolean",
@@ -367,6 +375,11 @@
                       "personal"
                     ],
                     "example": "work"
+                  },
+                  "photo": {
+                    "description": "Link to contact's photo",
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }

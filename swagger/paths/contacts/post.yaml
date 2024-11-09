@@ -13,9 +13,7 @@ requestBody:
         required:
           - name
           - phoneNumber
-          - isFavorite
           - contactType
-          - userId
         properties:
           name:
             description: "Contact's name"
@@ -25,6 +23,10 @@ requestBody:
             description: "Contact's phone number"
             type: number
             example: +4917146587763
+          email:
+            description: "Contact's email"
+            type: string
+            example: rudolf@mail.com
           isFavorite:
             description: 'Is contact a favorite?'
             type: boolean
