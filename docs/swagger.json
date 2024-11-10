@@ -21,10 +21,6 @@
     {
       "name": "Contacts",
       "description": "Operation with contacts."
-    },
-    {
-      "name": "Auth",
-      "description": "Auth operations."
     }
   ],
   "paths": {
@@ -205,11 +201,6 @@
                       "home",
                       "person"
                     ]
-                  },
-                  "usertId": {
-                    "description": "Contact's user id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -466,7 +457,7 @@
       },
       "delete": {
         "tags": [
-          "Delete Contacts"
+          "Contacts"
         ],
         "summary": "Delete contact",
         "operationId": "deleteContactById",
@@ -529,19 +520,12 @@
       "contact": {
         "type": "object",
         "required": [
-          "_id",
           "name",
           "phoneNumber",
           "isFavourite",
-          "contactType",
-          "userId"
+          "contactType"
         ],
         "properties": {
-          "_id": {
-            "description": "Contact's id",
-            "type": "string",
-            "example": "65e4decdd286b30065d54af9"
-          },
           "name": {
             "description": "Contact's name",
             "type": "string",
@@ -570,11 +554,6 @@
               "home",
               "personal"
             ]
-          },
-          "userId": {
-            "description": "Contact's user id",
-            "type": "string",
-            "example": "65e4decdd286b30065d54af9"
           },
           "photo": {
             "description": "Link to contact's photo",
