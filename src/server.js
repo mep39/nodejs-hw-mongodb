@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { UPLOAD_DIR } from './constants/index.js';
+// import { UPLOAD_DIR } from './constants/index.js';
 
 import { env } from './utils/env.js';
 
