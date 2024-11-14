@@ -540,7 +540,7 @@
             "type": "string",
             "example": "example@gmail.com"
           },
-          "isFavourite": {
+          "isFavorite": {
             "description": "Is contact favorite?",
             "type": "boolean",
             "example": false

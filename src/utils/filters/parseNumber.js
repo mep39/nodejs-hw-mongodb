@@ -7,7 +7,7 @@ export const parseContactType = (type) => {
   if (isType(type)) return type;
 };
 
-export const parseIsFavourite = (value) => {
+export const parseIsFavorite = (value) => {
   if (typeof value === 'boolean') {
     return value;
   }
