@@ -14,14 +14,14 @@ export const contactAddSchema = Joi.object({
     .default('personal')
     .min(3)
     .max(20),
-  isFavourite: Joi.boolean(),
+  isFavorite: Joi.boolean(),
 });
 
 export const contactPatchSchema = Joi.object({
   name: Joi.string().min(3).max(20),
   phoneNumber: Joi.string().min(3).max(20),
   email: Joi.string(),
-  isFavourite: Joi.boolean(),
+  isFavorite: Joi.boolean(),
   contactType: Joi.string()
     .valid(...contactList)
     .default('personal')
